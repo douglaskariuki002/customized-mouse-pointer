@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <link rel="stylesheet" href="./static/stylesheets/styles.css"></link>
+        <title>The Custom Pointer</title>
+    </head>
+    <body>
+        <div class="panel-shell">
+            <div class="io">
+                <input type="range" min="20" max="500" value="20"></input>
+                <p class="tT">20 ms</p>
+                <button class="mesh-toggle" type="button" aria-pressed="true">Mesh: On</button>
+                <label class="grid-control">
+                    <span>Rows</span>
+                    <input type="number" class="grid-rows" min="4" max="60" value="14"></input>
+                </label>
+                <label class="grid-control">
+                    <span>Columns</span>
+                    <input type="number" class="grid-columns" min="4" max="80" value="22"></input>
+                </label>
+            </div>
+        </div>
+        <div id="wrapper" class="wrapper"></div>
+        <script src="./package/dist/d3.js"></script>
+        <script src="./utils/utils.js"></script>
+        <script src="./src/index.js"></script>
+    </body>
+</html>

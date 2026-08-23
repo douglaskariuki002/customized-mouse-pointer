@@ -1,0 +1,77 @@
+body {
+    margin: 0;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    background-color: rgb(48, 45, 45);
+    cursor: none;
+    overflow: hidden;
+}
+
+.panel-shell {
+    position: relative;
+    z-index: 2;
+    padding: 12px 16px 0;
+    background: rgba(17, 17, 17, 0.18);
+    backdrop-filter: blur(4px);
+}
+
+#wrapper {
+    display: block;
+    position: fixed;
+    inset: 0;
+    padding-top: 64px;
+}
+
+svg {
+    display: block;
+    width: 100vw;
+    height: calc(100vh - 64px);
+    background: radial-gradient(circle at center, rgba(255, 255, 255, 0.05), rgba(48, 45, 45, 0.9));
+}
+
+.io {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    font-size: 11px;
+    gap: 12px;
+    flex-wrap: wrap;
+    min-height: 52px;
+}
+
+.tT {
+    color: white;
+    font-size: small;
+    margin: 0;
+}
+
+.mesh-toggle,
+.grid-control input {
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    background: rgba(255, 255, 255, 0.06);
+    color: white;
+    border-radius: 999px;
+}
+
+.mesh-toggle {
+    padding: 6px 12px;
+    font-size: 11px;
+    cursor: pointer;
+}
+
+.grid-control {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: white;
+    font-size: 11px;
+}
+
+.grid-control input {
+    width: 60px;
+    padding: 4px 8px;
+    font-size: 11px;
+}
+
+.mesh {
+    filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.1));
+}
