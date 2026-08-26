@@ -45,7 +45,8 @@ svg {
 }
 
 .mesh-toggle,
-.grid-control input {
+.grid-control input,
+.grid-control select {
     border: 1px solid rgba(255, 255, 255, 0.35);
     background: rgba(255, 255, 255, 0.06);
     color: white;
@@ -66,10 +67,15 @@ svg {
     font-size: 11px;
 }
 
-.grid-control input {
+.grid-control input,
+.grid-control select {
     width: 60px;
     padding: 4px 8px;
     font-size: 11px;
+}
+
+.grid-control select {
+    width: 90px;
 }
 
 .mesh {

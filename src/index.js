@@ -125,6 +125,7 @@ function createPointerController(container, dimensions, initialConfig = { rows: 
             const meshToggle = inputDiv.select(".mesh-toggle")
             const rowsInput = inputDiv.select(".grid-rows")
             const columnsInput = inputDiv.select(".grid-columns")
+            const meshTypeSelect = inputDiv.select(".mesh-type")
 
             slider.on("change", function() {
                 state.tT = Number(this.value)
@@ -139,17 +140,36 @@ function createPointerController(container, dimensions, initialConfig = { rows: 
                     .attr("aria-pressed", String(enabled))
             })
 
+            meshTypeSelect
+                .property("value", state.meshConfig.type)
+                .on("change", function() {
+                    rebuildMesh({
+                        rows: state.meshConfig.rows,
+                        columns: state.meshConfig.columns,
+                        type: this.value,
+                    })
+                    meshTypeSelect.property("value", state.meshConfig.type)
+                })
+
             rowsInput
                 .property("value", state.meshConfig.rows)
                 .on("input", function() {
-                    rebuildMesh({ rows: this.value, columns: state.meshConfig.columns })
+                    rebuildMesh({
+                        rows: this.value,
+                        columns: state.meshConfig.columns,
+                        type: state.meshConfig.type,
+                    })
                     rowsInput.property("value", state.meshConfig.rows)
                 })
 
             columnsInput
                 .property("value", state.meshConfig.columns)
                 .on("input", function() {
-                    rebuildMesh({ rows: state.meshConfig.rows, columns: this.value })
+                    rebuildMesh({
+                        rows: state.meshConfig.rows,
+                        columns: this.value,
+                        type: state.meshConfig.type,
+                    })
                     columnsInput.property("value", state.meshConfig.columns)
                 })
         },
