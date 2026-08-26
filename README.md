@@ -1,3 +1,10 @@
 # Customized Mouse Pointer
 
-The following is a slightly different implementation of the mouse pointer with customization properties. 
+A small interactive mouse pointer experiment with customization controls for mesh behavior, grid layout, and pointer size.
+
+## Features
+- Regular and irregular grid layouts
+- Pointer size adjustment
+- Smooth pointer motion
+- Toggle mesh visibility
+- Row and column configuration
