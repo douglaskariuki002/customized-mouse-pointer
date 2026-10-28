@@ -2,6 +2,7 @@ window.addEventListener("load", paint)
 
 const {
     normalizeMeshConfig,
+    normalizePointerSize,
     containerDimensions,
     createMeshData,
     clamp,
@@ -22,17 +23,18 @@ function createSvg(selector, dimensions) {
         .attr("height", dimensions.height)
 }
 
-function createPointerController(container, dimensions, initialConfig = { rows: 14, columns: 22 }) {
+function createPointerController(container, dimensions, initialConfig = { rows: 14, columns: 22, pointerSize: 12 }) {
     let intervalId = null
     const state = {
         tT: 20,
         mousePos: [0, 0],
         meshEnabled: true,
         meshConfig: normalizeMeshConfig(initialConfig),
+        pointerSize: normalizePointerSize(initialConfig.pointerSize ?? 12),
     }
 
     let mesh = drawMesh(container, dimensions, state.meshConfig)
-    const pointer = drawPointer(container)
+    const pointer = drawPointer(container, "circle", state.pointerSize)
     const hitArea = attachPointerLayer(container, dimensions)
 
     function setPointerPosition(pt) {
@@ -90,6 +92,12 @@ function createPointerController(container, dimensions, initialConfig = { rows: 
         return enabled
     }
 
+    function updatePointerSize(nextSize) {
+        state.pointerSize = normalizePointerSize(nextSize)
+        pointer.attr("r", state.pointerSize)
+        return state.pointerSize
+    }
+
     function rebuildMesh(nextConfig) {
         const config = normalizeMeshConfig(nextConfig)
         state.meshConfig = config
@@ -126,11 +134,19 @@ function createPointerController(container, dimensions, initialConfig = { rows: 
             const rowsInput = inputDiv.select(".grid-rows")
             const columnsInput = inputDiv.select(".grid-columns")
             const meshTypeSelect = inputDiv.select(".mesh-type")
+            const pointerSizeInput = inputDiv.select(".pointer-size")
 
             slider.on("change", function() {
                 state.tT = Number(this.value)
                 timeT.html(`${state.tT} ms`)
             })
+
+            pointerSizeInput
+                .property("value", state.pointerSize)
+                .on("input", function() {
+                    updatePointerSize(this.value)
+                    pointerSizeInput.property("value", state.pointerSize)
+                })
 
             meshToggle.on("click", function() {
                 const enabled = !state.meshEnabled
@@ -252,9 +268,9 @@ function attachPointerLayer(container, dimensions) {
         .attr("pointer-events", "all")
 }
 
-function drawPointer(container, type = "circle") {
+function drawPointer(container, type = "circle", radius = 12) {
     return container.append(type)
-        .attr("r", 12)
+        .attr("r", radius)
         .attr("fill", "rgba(255, 255, 255, 0.08)")
         .attr("stroke", "rgba(255, 255, 255, 0.7)")
         .attr("stroke-width", 1.5)

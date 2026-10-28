@@ -15,6 +15,15 @@
             }
         },
 
+        normalizePointerSize(size) {
+            const radius = Number(size)
+            if (!Number.isFinite(radius)) {
+                return 12
+            }
+
+            return PointerUtils.clamp(radius, 6, 60)
+        },
+
         getDimensions() {
             const dimensions = {
                 width: window.innerWidth,
